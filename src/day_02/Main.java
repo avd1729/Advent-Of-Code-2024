@@ -41,26 +41,46 @@ public class Main {
     }
 
     private static boolean isValid(List<Integer> list) {
+
+        if (checkValid(list)) {
+            return true;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            List<Integer> sublist = new ArrayList<>(list);
+            sublist.remove(i);
+
+            if (checkValid(sublist)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean checkValid(List<Integer> sublist) {
         boolean isIncreasing = false;
 
-        if (list.get(1) > list.get(0)) {
+        if (sublist.get(1) > sublist.get(0)) {
             isIncreasing = true;
         }
 
-        for (int i = 1; i < list.size(); i++) {
-            int diff = list.get(i) - list.get(i - 1);
+        for (int i = 1; i < sublist.size(); i++) {
+            int diff = sublist.get(i) - sublist.get(i - 1);
 
             if (isIncreasing) {
-                if (!(diff >= 1 && diff <= 3)) return false;
+                if (!(diff >= 1 && diff <= 3)) {
+                    return false;
+                }
             } else {
-                if (!(diff <= -1 && diff >= -3)) return false;
+                if (!(diff <= -1 && diff >= -3)) {
+                    return false;
+                }
             }
         }
 
         return true;
     }
-
-
 
 }
 
